@@ -13,6 +13,8 @@ class Sets{
     std::vector<type> data;
     std::vector<std::list<size_t>> set_index;
     std::vector<size_t> element_index;
+    std::vector<size_t> empty_sets = {};
+    size_t sets_number = 0;
 public:
 
     pair make_set(const type&);
@@ -41,6 +43,7 @@ size_t Sets<type>::union_sets(const size_t first, const size_t second){
         element_index[buffer] = first;
         set_index[first].push_front(buffer);
     }
+    empty_sets.push_back(second);
     return first;
 }
 
@@ -55,10 +58,20 @@ template<class type>
 pair Sets<type>::make_set(const type& elem){
     size_t elem_ind = element_index.size();
     size_t set_ind = set_index.size();
-    
+    bool reuse = false;
+    if(!empty_sets.empty()){
+        set_ind = empty_sets.back();
+        empty_sets.pop_back();
+        reuse = true;
+    }
     std::list<size_t> buffer;
     buffer.push_front(elem_ind);
-    set_index.push_back(buffer);
+    if(reuse == true){
+        set_index[set_ind] = buffer;
+    }
+    else 
+        set_index.push_back(buffer);
+        
     element_index.push_back(set_ind);
     data.push_back(elem);
 
