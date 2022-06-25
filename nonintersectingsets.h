@@ -2,7 +2,7 @@
 #include <vector>
 #include <list>
 
-struct pair
+struct setpair
 {
     size_t elem_index;
     size_t set_index;
@@ -17,7 +17,7 @@ class Sets{
     size_t sets_number = 0;
 public:
 
-    pair make_set(const type&);
+    setpair make_set(const type&);
     std::list<size_t> find_set(const size_t &);
     size_t union_sets(const size_t, const size_t);
     const type& get_elem_value_by_index(size_t);
@@ -64,7 +64,7 @@ std::list<size_t> Sets<type>::find_set(const size_t &ind){
 }
 
 template<class type>
-pair Sets<type>::make_set(const type& elem){
+setpair Sets<type>::make_set(const type& elem){
     size_t elem_ind = element_index.size();
     size_t set_ind = set_index.size();
     bool reuse = false;
@@ -84,6 +84,6 @@ pair Sets<type>::make_set(const type& elem){
     element_index.push_back(set_ind);
     data.push_back(elem);
 
-    pair retval = {elem_ind , set_ind};
+    setpair retval = {elem_ind , set_ind};
     return retval;
 }
