@@ -20,9 +20,18 @@ public:
     pair make_set(const type&);
     std::list<size_t> find_set(const size_t &);
     size_t union_sets(const size_t, const size_t);
-    const type& get_elem(size_t);
+    const type& get_elem_value_by_index(size_t);
+    int get_elem_index_by_value(const type &);
     size_t get_set_by_elem_ind(size_t );
 };
+
+template<class type>
+int Sets<type>::get_elem_index_by_value(const type& searched){
+    for(int i =0; i< data.size(); i++)
+        if(data[i] == searched)
+            return i;
+    return -1;
+}
 
 template<class type>
 size_t Sets<type>::get_set_by_elem_ind(size_t ind){
@@ -30,7 +39,7 @@ size_t Sets<type>::get_set_by_elem_ind(size_t ind){
 }
 
 template<class type>
-const type& Sets<type>::get_elem(size_t ind){
+const type& Sets<type>::get_elem_value_by_index(size_t ind){
     return data[ind];
 }
 
